@@ -3,7 +3,8 @@ from tkinter import ttk
 from tkinter import messagebox
 from util.db import SQL
 from c_funcao import IncluirFuncao
-
+from u_funcao import AlterarFuncao
+from d_funcao import ExcluirFuncao
 
 class CRUDFuncao(tk.Tk):
     def __init__(self):
@@ -20,7 +21,7 @@ class CRUDFuncao(tk.Tk):
 
         # Segunda linha - Parâmetro de consulta
         lb_nome = tk.Label(self, text="Nome da Função", font='Helvetica 12 bold', fg='blue')
-        lb_nome.grid(row=1, column=0, padx=self.PADX, pady=self.PADY, sticky='e')
+        lb_nome.grid(row=1, column=0, padx=self.PADX, pady=self.PADY, sticky='ew')
 
         self.nome_var = tk.StringVar()
         self.et_nome = ttk.Entry(self, textvariable=self.nome_var, font='Helvetica 16 bold', foreground='green')
@@ -90,10 +91,22 @@ class CRUDFuncao(tk.Tk):
         self.limpar_tabela()
 
     def alterar(self):
-        pass
+        idt = self.pegar_idt()
+        if idt != 0:
+            u = AlterarFuncao(self, idt)
+            self.et_nome.delete(0, tk.END)
+            self.limpar_tabela()
+        else:
+            messagebox.showerror("Erro: Escolha uma função", "Marque uma linha da tabela para selecionar a função")
 
     def excluir(self):
-        pass
+        idt = self.pegar_idt()
+        if idt != 0:
+            d = ExcluirFuncao(self, idt)
+            self.et_nome.delete(0, tk.END)
+            self.limpar_tabela()
+        else:
+            messagebox.showerror("Erro: Escolha uma função", "Marque uma linha da tabela para selecionar a função")
 
 
 if __name__ == '__main__':
