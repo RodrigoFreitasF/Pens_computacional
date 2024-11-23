@@ -4,8 +4,8 @@ import mysql.connector
 class SQL:
     def __init__(self, servidor='localhost', usr='root', pwd='ceub123456', esquema='test'):
         self.cnx = mysql.connector.connect(host=servidor,
-                                           user="root",
-                                           password="admin",
+                                           user=usr,
+                                           password=pwd,
                                            database="bd_planejamento")
     def __del__(self):
         self.cnx.close()
